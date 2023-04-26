@@ -40,7 +40,7 @@ const keyboardEnKeys = {
   "Semicolon": ";",
   "Quote": "'",
   "Enter": "Enter",
-  "LeftShift": "LeftShift",
+  "LeftShift": "Shift",
   "IntlBackslash": "`",
   "KeyZ": "z",
   "KeyX": "x",
@@ -52,18 +52,18 @@ const keyboardEnKeys = {
   "Comma": ",",
   "Period": ".",
   "Slash": "/",
-  "ArrowUp": "ArrowUp",
-  "RightShift": "RightShift",
+  "ArrowUp": "&#9650;",
+  "RightShift": "Shift",
   "Fn": "Fn",
-  "LeftCtrl": "LeftCtrl",
-  "LeftOpt": "LeftOpt",
-  "LeftCmd": "LeftCmd",
+  "LeftCtrl": "Ctrl",
+  "LeftOpt": "Opt",
+  "LeftCmd": "Cmd",
   "Space": " ",
-  "RightCmd": "RightCmd",
-  "RightOpt": "RightOpt",
-  "ArrowLeft": "ArrowLeft",
-  "ArrowDown": "ArrowDown",
-  "ArrowRight": "ArrowRight"
+  "RightCmd": "Cmd",
+  "RightOpt": "Opt",
+  "ArrowLeft": "&#9668;",
+  "ArrowDown": "&#9660;",
+  "ArrowRight": "&#9658;"
 };
 
 const keyboardEnUpperCaseKeys = {
@@ -108,7 +108,7 @@ const keyboardEnUpperCaseKeys = {
   "Semicolon": ":",
   "Quote": "\"",
   "Enter": "Enter",
-  "LeftShift": "LeftShift",
+  "LeftShift": "Shift",
   "IntlBackslash": "~",
   "KeyZ": "Z",
   "KeyX": "X",
@@ -120,18 +120,18 @@ const keyboardEnUpperCaseKeys = {
   "Comma": "<",
   "Period": ">",
   "Slash": "?",
-  "ArrowUp": "ArrowUp",
-  "RightShift": "RightShift",
+  "ArrowUp": "&#9650;",
+  "RightShift": "Shift",
   "Fn": "Fn",
-  "LeftCtrl": "LeftCtrl",
-  "LeftOpt": "LeftOpt",
-  "LeftCmd": "LeftCmd",
+  "LeftCtrl": "Ctrl",
+  "LeftOpt": "Opt",
+  "LeftCmd": "Cmd",
   "Space": " ",
-  "RightCmd": "RightCmd",
-  "RightOpt": "RightOpt",
-  "ArrowLeft": "ArrowLeft",
-  "ArrowDown": "ArrowDown",
-  "ArrowRight": "ArrowRight"
+  "RightCmd": "Cmd",
+  "RightOpt": "Opt",
+  "ArrowLeft": "&#9668;",
+  "ArrowDown": "&#9660;",
+  "ArrowRight": "&#9658;"
 }
 
 const keyboardEnCapsKeys = {
@@ -176,7 +176,7 @@ const keyboardEnCapsKeys = {
   "Semicolon": ";",
   "Quote": "'",
   "Enter": "Enter",
-  "LeftShift": "LeftShift",
+  "LeftShift": "Shift",
   "IntlBackslash": "`",
   "KeyZ": "Z",
   "KeyX": "X",
@@ -188,18 +188,18 @@ const keyboardEnCapsKeys = {
   "Comma": ",",
   "Period": ".",
   "Slash": "/",
-  "ArrowUp": "ArrowUp",
-  "RightShift": "RightShift",
+  "ArrowUp": "&#9650;",
+  "RightShift": "Shift",
   "Fn": "Fn",
-  "LeftCtrl": "LeftCtrl",
-  "LeftOpt": "LeftOpt",
-  "LeftCmd": "LeftCmd",
+  "LeftCtrl": "Ctrl",
+  "LeftOpt": "Opt",
+  "LeftCmd": "Cmd",
   "Space": " ",
-  "RightCmd": "RightCmd",
-  "RightOpt": "RightOpt",
-  "ArrowLeft": "ArrowLeft",
-  "ArrowDown": "ArrowDown",
-  "ArrowRight": "ArrowRight"
+  "RightCmd": "Cmd",
+  "RightOpt": "Opt",
+  "ArrowLeft": "&#9668;",
+  "ArrowDown": "&#9660;",
+  "ArrowRight": "&#9658;"
 }
 
 const keyboardEnCapsShiftKeys = {
@@ -244,7 +244,7 @@ const keyboardEnCapsShiftKeys = {
   "Semicolon": ":",
   "Quote": "\"",
   "Enter": "Enter",
-  "LeftShift": "LeftShift",
+  "LeftShift": "Shift",
   "IntlBackslash": "~",
   "KeyZ": "Z",
   "KeyX": "X",
@@ -256,18 +256,18 @@ const keyboardEnCapsShiftKeys = {
   "Comma": "<",
   "Period": ">",
   "Slash": "?",
-  "ArrowUp": "ArrowUp",
-  "RightShift": "RightShift",
+  "ArrowUp": "&#9650;",
+  "RightShift": "Shift",
   "Fn": "Fn",
-  "LeftCtrl": "LeftCtrl",
-  "LeftOpt": "LeftOpt",
-  "LeftCmd": "LeftCmd",
+  "LeftCtrl": "Ctrl",
+  "LeftOpt": "Opt",
+  "LeftCmd": "Cmd",
   "Space": " ",
-  "RightCmd": "RightCmd",
-  "RightOpt": "RightOpt",
-  "ArrowLeft": "ArrowLeft",
-  "ArrowDown": "ArrowDown",
-  "ArrowRight": "ArrowRight"
+  "RightCmd": "Cmd",
+  "RightOpt": "Opt",
+  "ArrowLeft": "&#9668;",
+  "ArrowDown": "&#9660;",
+  "ArrowRight": "&#9658;"
 }
 
 const keyboardEnKeysArray = Object.keys(keyboardEnKeys);
@@ -321,6 +321,8 @@ const keyboardEnCapsShiftKeysArray = Object.keys(keyboardEnCapsShiftKeys);
 //   return this.createElem;
 // }
 
+const keyboard = document.createElement('div');
+const textarea = document.createElement('textarea');
 
 function generateLayout() {
   const headertext = 'RSS Виртуальная клавиатура';
@@ -335,14 +337,14 @@ function generateLayout() {
   header.innerHTML = headertext;
   wrapper.append(header);
 
-  const textarea = document.createElement('textarea');
+  // const textarea = document.createElement('textarea');
   textarea.id = 'textarea';
   textarea.className = 'textarea';
   textarea.rows = 5;
   textarea.cols = 50;
   wrapper.append(textarea);
 
-  const keyboard = document.createElement('div');
+  // const keyboard = document.createElement('div');
   keyboard.className = 'keyboard';
   wrapper.append(keyboard);
 
@@ -388,3 +390,32 @@ function generateLayout() {
 }
 
 generateLayout();
+
+
+let textAreaText = ''
+
+keyboard.onclick = function mouseDownHandler(event) {
+  let target = event.target.closest('div.key');
+  console.log(target)
+
+  if (!target) return;
+  if (!keyboard.contains(target)) return;
+
+  // chooseButton(target);
+
+  console.log(target.className);
+
+  let letterCode = target.className.split(' ')[1]
+  textAreaText += keyboardEnKeys[letterCode];
+  textarea.innerHTML = textAreaText;
+
+}
+// let selectedTD;
+// function chooseButton(td) {
+//   if (selectedTD) {
+//     selectedTD.classList.remove('active');
+//   }
+
+//   selectedTD = td;
+//   selectedTD.classList.add('active');
+// }
