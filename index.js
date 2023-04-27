@@ -12,8 +12,8 @@ const keyboardEnKeys = {
   "Digit0": "0",
   "Minus": "-",
   "Equal": "=",
-  "backspace": "backspace",
-  "tab": "tab",
+  "Backspace": "Backspace",
+  "Tab": "Tab",
   "KeyQ": "q",
   "KeyW": "w",
   "KeyE": "e",
@@ -40,7 +40,7 @@ const keyboardEnKeys = {
   "Semicolon": ";",
   "Quote": "'",
   "Enter": "Enter",
-  "LeftShift": "Shift",
+  "ShiftLeft": "Shift",
   "IntlBackslash": "`",
   "KeyZ": "z",
   "KeyX": "x",
@@ -53,9 +53,9 @@ const keyboardEnKeys = {
   "Period": ".",
   "Slash": "/",
   "ArrowUp": "&#9650;",
-  "RightShift": "Shift",
+  "ShiftRight": "Shift",
   "Fn": "Fn",
-  "LeftCtrl": "Ctrl",
+  "ControlLeft": "Ctrl",
   "LeftOpt": "Opt",
   "LeftCmd": "Cmd",
   "Space": " ",
@@ -80,8 +80,8 @@ const keyboardEnUpperCaseKeys = {
   "Digit0": ")",
   "Minus": "_",
   "Equal": "+",
-  "backspace": "backspace",
-  "tab": "tab",
+  "Backspace": "Backspace",
+  "Tab": "Tab",
   "KeyQ": "Q",
   "KeyW": "W",
   "KeyE": "E",
@@ -108,7 +108,7 @@ const keyboardEnUpperCaseKeys = {
   "Semicolon": ":",
   "Quote": "\"",
   "Enter": "Enter",
-  "LeftShift": "Shift",
+  "ShiftLeft": "Shift",
   "IntlBackslash": "~",
   "KeyZ": "Z",
   "KeyX": "X",
@@ -121,9 +121,9 @@ const keyboardEnUpperCaseKeys = {
   "Period": ">",
   "Slash": "?",
   "ArrowUp": "&#9650;",
-  "RightShift": "Shift",
+  "ShiftRight": "Shift",
   "Fn": "Fn",
-  "LeftCtrl": "Ctrl",
+  "ControlLeft": "Ctrl",
   "LeftOpt": "Opt",
   "LeftCmd": "Cmd",
   "Space": " ",
@@ -148,8 +148,8 @@ const keyboardEnCapsKeys = {
   "Digit0": "0",
   "Minus": "-",
   "Equal": "=",
-  "backspace": "backspace",
-  "tab": "tab",
+  "Backspace": "Backspace",
+  "Tab": "Tab",
   "KeyQ": "Q",
   "KeyW": "W",
   "KeyE": "E",
@@ -176,7 +176,7 @@ const keyboardEnCapsKeys = {
   "Semicolon": ";",
   "Quote": "'",
   "Enter": "Enter",
-  "LeftShift": "Shift",
+  "ShiftLeft": "Shift",
   "IntlBackslash": "`",
   "KeyZ": "Z",
   "KeyX": "X",
@@ -189,9 +189,9 @@ const keyboardEnCapsKeys = {
   "Period": ".",
   "Slash": "/",
   "ArrowUp": "&#9650;",
-  "RightShift": "Shift",
+  "ShiftRight": "Shift",
   "Fn": "Fn",
-  "LeftCtrl": "Ctrl",
+  "ControlLeft": "Ctrl",
   "LeftOpt": "Opt",
   "LeftCmd": "Cmd",
   "Space": " ",
@@ -216,8 +216,8 @@ const keyboardEnCapsShiftKeys = {
   "Digit0": ")",
   "Minus": "_",
   "Equal": "+",
-  "backspace": "backspace",
-  "tab": "tab",
+  "Backspace": "Backspace",
+  "Tab": "Tab",
   "KeyQ": "Q",
   "KeyW": "W",
   "KeyE": "E",
@@ -244,7 +244,7 @@ const keyboardEnCapsShiftKeys = {
   "Semicolon": ":",
   "Quote": "\"",
   "Enter": "Enter",
-  "LeftShift": "Shift",
+  "ShiftLeft": "Shift",
   "IntlBackslash": "~",
   "KeyZ": "Z",
   "KeyX": "X",
@@ -257,9 +257,9 @@ const keyboardEnCapsShiftKeys = {
   "Period": ">",
   "Slash": "?",
   "ArrowUp": "&#9650;",
-  "RightShift": "Shift",
+  "ShiftRight": "Shift",
   "Fn": "Fn",
-  "LeftCtrl": "Ctrl",
+  "ControlLeft": "Ctrl",
   "LeftOpt": "Opt",
   "LeftCmd": "Cmd",
   "Space": " ",
@@ -297,7 +297,7 @@ const keyboardEnCapsShiftKeysArray = Object.keys(keyboardEnCapsShiftKeys);
 //   // console.log('keyboardEnCapsShiftKeys', keyboardEnCapsShiftKeys)
 // }
 
-//HTML markup generation
+// HTML markup generation
 
 // function createBlock(tag, clName) {
 //   this.tag = tag;
@@ -361,29 +361,25 @@ function generateLayout() {
       row.append(keyboardButton);
 
       let caseDown = document.createElement('span');
-      caseDown.className = 'caseDown'
+      caseDown.className = 'caseDown';
       caseDown.innerHTML = keyboardEnKeys[keyboardEnKeysArray[shift+j]];
       keyboardButton.append(caseDown);
 
       let caseUp = document.createElement('span');
-      caseUp.className = 'caseUp hidden'
+      caseUp.className = 'caseUp hidden';
       caseUp.innerHTML = keyboardEnUpperCaseKeys[keyboardEnUpperCaseKeysArray[shift+j]];
       keyboardButton.append(caseUp);
 
       let caps = document.createElement('span');
-      caps.className = 'caps hidden'
+      caps.className = 'caps hidden';
       caps.innerHTML = keyboardEnCapsKeys[keyboardEnCapsKeysArray[shift+j]];
       keyboardButton.append(caps);
 
       let capsShift = document.createElement('span');
-      capsShift.className = 'capsShift hidden'
+      capsShift.className = 'capsShift hidden';
       capsShift.innerHTML = keyboardEnCapsShiftKeys[keyboardEnCapsShiftKeysArray[shift+j]];
       keyboardButton.append(capsShift);
-
-
-
       //! нужна функция генератор кнопок
-
     }
     shift += keyboarsRowsLength[i];
   }
@@ -391,11 +387,10 @@ function generateLayout() {
 
 generateLayout();
 
-
-let textAreaText = ''
+let textAreaText = '';
 
 keyboard.onclick = function mouseDownHandler(event) {
-  let target = event.target.closest('div.key');
+  const target = event.target.closest('div.key');
   console.log(target)
 
   if (!target) return;
@@ -405,11 +400,11 @@ keyboard.onclick = function mouseDownHandler(event) {
 
   console.log(target.className);
 
-  let letterCode = target.className.split(' ')[1]
+  const letterCode = target.className.split(' ')[1];
   textAreaText += keyboardEnKeys[letterCode];
   textarea.innerHTML = textAreaText;
-
 }
+
 // let selectedTD;
 // function chooseButton(td) {
 //   if (selectedTD) {
