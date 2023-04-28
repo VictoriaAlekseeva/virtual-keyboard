@@ -51,7 +51,8 @@ h1 {
   transition: 0.3s;
 }
 
-.key:active {
+.key:active,
+.active {
   background-color: green;
   border-radius: 40px;
 }
