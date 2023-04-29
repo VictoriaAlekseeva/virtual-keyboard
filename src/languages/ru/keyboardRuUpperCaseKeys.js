@@ -56,11 +56,11 @@ const keyboardRuUpperCaseKeys = {
   "ShiftRight": "Shift",
   "Fn": "Fn",
   "ControlLeft": "Ctrl",
-  "LeftOpt": "Opt",
+  "AltLeft": "Opt",
   "LeftCmd": "Cmd",
   "Space": " ",
   "RightCmd": "Cmd",
-  "RightOpt": "Opt",
+  "AltRight": "Opt",
   "ArrowLeft": "&#9668;",
   "ArrowDown": "&#9660;",
   "ArrowRight": "&#9658;"

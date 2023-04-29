@@ -53,25 +53,27 @@ export function generateLayout() {
       keyboardButton.append(ruButton);
 
       let ruCaseDown = new CreateElem('span', 'caseDown active');
-      ruCaseDown.innerHTML = keyboardEnKeys[keyboardRuKeysArray[shift+j]];
+      ruCaseDown.innerHTML = keyboardRuKeys[keyboardRuKeysArray[shift+j]];
       ruButton.append(ruCaseDown);
 
       let ruCaseUp = new CreateElem('span', 'caseUp hidden');
-      ruCaseUp.innerHTML = keyboardEnUpperCaseKeys[keyboardRuUpperCaseKeysArray[shift+j]];
+      ruCaseUp.innerHTML = keyboardRuUpperCaseKeys[keyboardRuUpperCaseKeysArray[shift+j]];
       ruButton.append(ruCaseUp);
 
       let ruCaps = new CreateElem('span', 'caps hidden');
-      ruCaps.innerHTML = keyboardEnCapsKeys[keyboardRuCapsKeysArray[shift+j]];
+      ruCaps.innerHTML = keyboardRuCapsKeys[keyboardRuCapsKeysArray[shift+j]];
       ruButton.append(ruCaps);
 
       let ruCapsShift = new CreateElem('span', 'capsShift hidden');
-      ruCapsShift.innerHTML = keyboardEnCapsShiftKeys[keyboardRuCapsShiftKeysArray[shift+j]];
+      ruCapsShift.innerHTML = keyboardRuCapsShiftKeys[keyboardRuCapsShiftKeysArray[shift+j]];
       ruButton.append(ruCapsShift);
 
-      let enButton = new CreateElem('span', 'en');
+      // let enButton = new CreateElem('span', 'en');
+      let enButton = new CreateElem('span', 'en hidden');
       keyboardButton.append(enButton);
 
-      let enCaseDown = new CreateElem('span', 'caseDown active');
+      // let enCaseDown = new CreateElem('span', 'caseDown active');
+      let enCaseDown = new CreateElem('span', 'caseDown hidden');
       enCaseDown.innerHTML = keyboardEnKeys[keyboardEnKeysArray[shift+j]];
       enButton.append(enCaseDown);
 
