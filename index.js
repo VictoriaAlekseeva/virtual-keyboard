@@ -4,6 +4,9 @@ import { generateLayout } from './src/modules/generateLayout.js';
 //   generateLayout();
 // }
 
+let language = 'EN';
+
+let letterCase = 'caseDown';
 
 generateLayout();
 
@@ -12,33 +15,38 @@ const textarea = document.querySelector('.textarea');
 const enLanguage = document.querySelectorAll('.en');
 const ruLanguage = document.querySelectorAll('.ru');
 
-console.log(keyboard);
-
-let language = 'EN';
-
 function setLanguage(language) {
+
   if (language === 'EN') {
     enLanguage.forEach(el => {
       el.classList.remove('hidden');
       el.classList.add('active');
-      el.querySelector('.caseDown').classList.add('active'); //!при переключении языка будет нижний регистр
-      el.querySelector('.caseDown').classList.remove('hidden');
+      el.querySelector(`.${letterCase}`).classList.add('active'); //!при переключении языка будет нижний регистр
+      el.querySelector(`.${letterCase}`).classList.remove('hidden');
     })
     ruLanguage.forEach(el => {
       el.classList.add('hidden');
-      el.classList.remove('active');})
-  } else if (language === 'RU') {
+      el.classList.remove('active');
+      el.querySelector(`.${letterCase}`).classList.add('hidden');
+      el.querySelector(`.${letterCase}`).classList.remove('active'); 
+    })} else if (language === 'RU') {
     ruLanguage.forEach(el => {
       el.classList.remove('hidden');
       el.classList.add('active');
-      el.querySelector('.caseDown').classList.add('active'); //!при переключении языка будет нижний регистр
-      el.querySelector('.caseDown').classList.remove('hidden');
+      el.querySelector(`.${letterCase}`).classList.add('active');
+      el.querySelector(`.${letterCase}`).classList.remove('hidden');
     })
     enLanguage.forEach(el => {
       el.classList.add('hidden');
       el.classList.remove('active');
+      el.querySelector(`.${letterCase}`).classList.add('hidden');
+      el.querySelector(`.${letterCase}`).classList.remove('active');
     })
   }
+
+//   let letterCase = enLanguage[0].querySelector('.active') || ruLanguage[0].querySelector('.active');
+// console.log(ruLanguage);
+
 }
 
 function runOnKeys(func, ...codes) {
@@ -76,7 +84,6 @@ setLanguage(language);
 window.addEventListener('keydown', function(event) {
   console.log(event.code)
   document.querySelector(`.${event.code}`).classList.add('active');
-
 })
 
 window.addEventListener('keyup', function(event) {
@@ -112,6 +119,7 @@ function capsLockHandler(target)   {
     target.classList.toggle('active');
 
     if (target.classList.contains('active')) {
+      letterCase = 'caps';
       caseDown.forEach(el => {
         el.classList.remove('active');
         el.classList.add('hidden');
@@ -131,6 +139,7 @@ function capsLockHandler(target)   {
         el.classList.remove('hidden');
         el.classList.add('active');
       });} else {
+        letterCase = 'caseDown';
       caseDown.forEach(el => {
         el.classList.add('active');
         el.classList.remove('hidden');
@@ -148,6 +157,7 @@ function capsLockHandler(target)   {
         el.classList.add('hidden');
       });
     }
+
   }
 }
 
