@@ -52,7 +52,7 @@ h1 {
 }
 
 .key:active,
-.active {
+.key.active {
   background-color: green;
   border-radius: 40px;
 }
