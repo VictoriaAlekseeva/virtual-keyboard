@@ -4,9 +4,11 @@ import { generateLayout } from './src/modules/generateLayout.js';
 //   generateLayout();
 // }
 
-let language = 'EN';
+let language = 'en';
 
 let letterCase = 'caseDown';
+
+let serviceKeysCodes = ['Backspace', 'Tab', 'CapsLock', 'Enter', 'ShiftLeft', 'ShiftRight', 'ControlLeft', 'AltLeft', 'LeftCmd', 'RightCmd', 'AltRight', 'Fn'];
 
 generateLayout();
 
@@ -14,9 +16,14 @@ const keyboard = document.querySelector('.keyboard');
 const textarea = document.querySelector('.textarea');
 const enLanguage = document.querySelectorAll('.en');
 const ruLanguage = document.querySelectorAll('.ru');
+const caseDown = document.querySelectorAll('.caseDown');
+const caseUp = document.querySelectorAll('.caseUp');
+const caps = document.querySelectorAll('.caps');
+const capsShift = document.querySelectorAll('.capsShift');
+let textAreaText = '';
 
 function setLanguage(language) {
-  if (language === 'EN') {
+  if (language === 'en') {
     enLanguage.forEach(el => {
       el.classList.remove('hidden');
       el.classList.add('active');
@@ -28,7 +35,7 @@ function setLanguage(language) {
       el.classList.remove('active');
       el.querySelector(`.${letterCase}`).classList.add('hidden');
       el.querySelector(`.${letterCase}`).classList.remove('active');
-    })} else if (language === 'RU') {
+    })} else if (language === 'ru') {
     ruLanguage.forEach(el => {
       el.classList.remove('hidden');
       el.classList.add('active');
@@ -70,28 +77,23 @@ function runOnKeys(func, ...codes) {
 runOnKeys(changeLanguage, 'AltLeft', 'ControlLeft');
 
 function changeLanguage() {
-  language === 'EN' ? language = 'RU' : language = 'EN';
+  language === 'en' ? language = 'ru' : language = 'en';
   setLanguage(language);
 }
 
 setLanguage(language);
 
 window.addEventListener('keydown', function(event) {
-  console.log(event.code);
+  console.log(event.code, event);
   document.querySelector(`.${event.code}`).classList.add('active');
+  let target = document.querySelector(`.${event.code}`)
+  textType(target, event.code);
 })
 
 window.addEventListener('keyup', function(event) {
   console.log(event.code);
   document.querySelector(`.${event.code}`).classList.remove('active');
 })
-
-let textAreaText = '';
-
-const caseDown = document.querySelectorAll('.caseDown');
-const caseUp = document.querySelectorAll('.caseUp');
-const caps = document.querySelectorAll('.caps');
-const capsShift = document.querySelectorAll('.capsShift');
 
 function capsLockHandler(target) {
   if ((letterCase !== 'capsShift') && (target.classList.contains('CapsLock'))) {
@@ -172,8 +174,12 @@ keyboard.addEventListener('click', function(event){
   if (!keyboard.contains(target)) return;
 
   const letterCode = target.className.split(' ')[1];
-  textAreaText += keyboardEnKeys[letterCode];
-  textarea.innerHTML = textAreaText;
+
+  textType(target, letterCode);
+
+  // const letterCode = target.className.split(' ')[1];
+  // textAreaText += keyboardEnKeys[letterCode];
+  // textarea.innerHTML = textAreaText;
 });
 
 function toUpperCase(target) {
@@ -248,7 +254,15 @@ function shiftCapsMouseUp(target) {
       el.classList.remove('active');
       el.classList.add('hidden');
     });
-
     letterCase = 'caps';
   };
+}
+
+function textType(target, code) {
+  if (!serviceKeysCodes.includes(code)) {
+    const letter = target.querySelector(`.${language} .active`);
+    // console.log(code, target)
+    textAreaText += letter.innerHTML;
+    textarea.innerHTML = textAreaText;
+  }
 }
