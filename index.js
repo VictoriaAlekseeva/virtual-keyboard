@@ -4,6 +4,7 @@ import setLanguage from './src/modules/setLanguage.js';
 import toUpperCase from './src/modules/toUpperCase.js';
 import toLowerCase from './src/modules/toLowerCase.js';
 import capsLockOnOff from './src/modules/toCapsLock.js';
+import capsLockHandler from './src/modules/capsLockHandler.js';
 
 let language = localStorage.getItem('language');
 language = language == null ? 'en' : language;
@@ -190,7 +191,7 @@ keyboard.addEventListener('mousedown', (event) => {
   if (!target) return;
   if (!keyboard.contains(target)) return;
 
-  // capsLockHandler(target);
+  capsLockHandler(target, letterCase, language);
   toUpperCase(target, letterCase, language);
   shiftCapsMouseDown(target);
 });
