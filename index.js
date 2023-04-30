@@ -190,7 +190,7 @@ keyboard.addEventListener('mousedown', (event) => {
   if (!target) return;
   if (!keyboard.contains(target)) return;
 
-  capsLockHandler(target);
+  // capsLockHandler(target);
   toUpperCase(target, letterCase, language);
   shiftCapsMouseDown(target);
 });
