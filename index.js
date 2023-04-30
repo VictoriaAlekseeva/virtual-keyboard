@@ -2,6 +2,7 @@ import generateLayout from './src/modules/generateLayout.js';
 import setLanguage from './src/modules/setLanguage.js';
 
 import toUpperCase from './src/modules/toUpperCase.js';
+import toLowerCase from './src/modules/toLowerCase.js';
 
 let language = localStorage.getItem('language');
 language = language == null ? 'en' : language;
@@ -52,22 +53,7 @@ function changeLanguage() {
 
 runOnKeys(changeLanguage, 'AltLeft', 'ControlLeft');
 
-function toLowerCase(target) {
-  if ((letterCase !== ('caps' || 'capsShift')) && (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
-    target.classList.remove('active');
-    letterCase = 'caseDown';
 
-    caseDown.forEach((el) => {
-      el.classList.add('active');
-      el.classList.remove('hidden');
-    });
-
-    caseUp.forEach((el) => {
-      el.classList.remove('active');
-      el.classList.add('hidden');
-    });
-  }
-}
 
 function shiftCapsMouseDown(target) {
   if ((letterCase === 'caps') && (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
@@ -194,7 +180,7 @@ window.addEventListener('keyup', (event) => {
   target.classList.remove('active');
   capsLockOnOff(event, target);
   shiftCapsMouseUp(target);
-  toLowerCase(target);
+  toLowerCase(target, letterCase, language);
 });
 
 keyboard.addEventListener('mousedown', (event) => {
@@ -215,19 +201,19 @@ keyboard.addEventListener('mouseup', (event) => {
   if (!keyboard.contains(target)) return;
 
   shiftCapsMouseUp(target);
-  toLowerCase(target);
+  toLowerCase(target, letterCase, language);
 });
 
-keyboard.addEventListener('click', (event) => {
-  const target = event.target.closest('div.key');
+// keyboard.addEventListener('click', (event) => {
+//   const target = event.target.closest('div.key');
 
-  if (!target) return;
-  if (!keyboard.contains(target)) return;
+//   if (!target) return;
+//   if (!keyboard.contains(target)) return;
 
-  const letterCode = target.className.split(' ')[1];
+//   const letterCode = target.className.split(' ')[1];
 
-  textType(target, letterCode);
-});
+//   textType(target, letterCode);
+// });
 
 // const activeLanguage = document.querySelectorAll(`.${language}.active`); //только активный язык
 // console.log(activeLanguage)
