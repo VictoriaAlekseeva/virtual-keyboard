@@ -1,16 +1,16 @@
 import { generateLayout } from './src/modules/generateLayout.js';
-
-// window.onload = function() {
-//   generateLayout();
-// }
+import { setLanguage } from './src/modules/setLanguage.js';
 
 let language = 'en';
-
 let letterCase = 'caseDown';
-
-let serviceKeysCodes = ['Backspace', 'Tab', 'CapsLock', 'Enter', 'ShiftLeft', 'ShiftRight', 'ControlLeft', 'AltLeft', 'LeftCmd', 'RightCmd', 'AltRight', 'Fn'];
+const serviceKeysCodes = ['Backspace', 'Tab', 'CapsLock', 'Enter', 'ShiftLeft', 'ShiftRight', 'ControlLeft', 'AltLeft', 'LeftCmd', 'RightCmd', 'AltRight', 'Fn'];
 
 generateLayout();
+
+window.onload = (event) => {
+// console.log("getModifierState('CapsLock')", event.getModifierState('CapsLock'));
+// console.log("getModifierState('Shift')", event.getModifierState('Shift'));
+}
 
 const keyboard = document.querySelector('.keyboard');
 const textarea = document.querySelector('.textarea');
@@ -21,35 +21,6 @@ const caseUp = document.querySelectorAll('.caseUp');
 const caps = document.querySelectorAll('.caps');
 const capsShift = document.querySelectorAll('.capsShift');
 let textAreaText = '';
-
-function setLanguage(language) {
-  if (language === 'en') {
-    enLanguage.forEach(el => {
-      el.classList.remove('hidden');
-      el.classList.add('active');
-      el.querySelector(`.${letterCase}`).classList.add('active');
-      el.querySelector(`.${letterCase}`).classList.remove('hidden');
-    })
-    ruLanguage.forEach(el => {
-      el.classList.add('hidden');
-      el.classList.remove('active');
-      el.querySelector(`.${letterCase}`).classList.add('hidden');
-      el.querySelector(`.${letterCase}`).classList.remove('active');
-    })} else if (language === 'ru') {
-    ruLanguage.forEach(el => {
-      el.classList.remove('hidden');
-      el.classList.add('active');
-      el.querySelector(`.${letterCase}`).classList.add('active');
-      el.querySelector(`.${letterCase}`).classList.remove('hidden');
-    })
-    enLanguage.forEach(el => {
-      el.classList.add('hidden');
-      el.classList.remove('active');
-      el.querySelector(`.${letterCase}`).classList.add('hidden');
-      el.querySelector(`.${letterCase}`).classList.remove('active');
-    })
-  }
-}
 
 function runOnKeys(func, ...codes) {
   let pressed = new Set();
@@ -85,19 +56,64 @@ setLanguage(language);
 
 window.addEventListener('keydown', function(event) {
   console.log(event.code, event);
-  document.querySelector(`.${event.code}`).classList.add('active');
-  let target = document.querySelector(`.${event.code}`)
+  let target = document.querySelector(`.${event.code}`);
+  target.classList.add('active');
   textType(target, event.code);
+  console.log(letterCase);
+  // capsLockHandler(target);
+  capsLockOnOff(event, target);
+  toUpperCase(target);
+  shiftCapsMouseDown(target);
+  console.log("getModifierState('CapsLock')", event.getModifierState('CapsLock'))
+  console.log("getModifierState('Shift')", event.getModifierState('Shift'))
 })
 
 window.addEventListener('keyup', function(event) {
   console.log(event.code);
-  document.querySelector(`.${event.code}`).classList.remove('active');
+  let target = document.querySelector(`.${event.code}`);
+  target.classList.remove('active');
+  // capsLockHandler(target);
+  capsLockOnOff(event, target);
+  shiftCapsMouseUp(target);
+  toLowerCase(target);
+  console.log("getModifierState('CapsLock')", event.getModifierState('CapsLock'));
+  console.log("getModifierState('Shift')", event.getModifierState('Shift'));
 })
+
+
+function capsLockOnOff(event, target) {
+  // let target = document.querySelector(`.${event.code}`);
+
+  if (event.getModifierState('CapsLock')) {
+    target.classList.add('active');
+    caseDown.forEach(el => {
+      el.classList.remove('active');
+      el.classList.add('hidden');
+    });
+
+    caps.forEach(el => {
+      el.classList.add('active');
+      el.classList.remove('hidden');
+    })
+  } else {
+    target.classList.remove('active');
+    caseDown.forEach(el => {
+      el.classList.add('active');
+      el.classList.remove('hidden');
+    });
+
+    caps.forEach(el => {
+      el.classList.remove('active')
+      el.classList.add('hidden');
+    });
+  }
+}
 
 function capsLockHandler(target) {
   if ((letterCase !== 'capsShift') && (target.classList.contains('CapsLock'))) {
     target.classList.toggle('active');
+
+    // event.getModifierState('CapsLock') = true;
 
     if (target.classList.contains('active')) {
       letterCase = 'caps';
@@ -106,35 +122,18 @@ function capsLockHandler(target) {
         el.classList.add('hidden');
       });
 
-      // caseUp.forEach(el => {
-      //   el.classList.remove('active');
-      //   el.classList.add('hidden');
-      // });
-
-      // capsShift.forEach(el => {
-      //   el.classList.remove('active');
-      //   el.classList.add('hidden');
-      // });
-
       caps.forEach(el => {
         el.classList.add('active');
         el.classList.remove('hidden');
       })
     } else if (!target.classList.contains('active')) {
         letterCase = 'caseDown';
+        // event.getModifierState('CapsLock') = false;
 
         caseDown.forEach(el => {
         el.classList.add('active');
         el.classList.remove('hidden');
       });
-
-      // caseUp.forEach(el => {
-      //   el.classList.add('hidden');
-      // });
-
-      // capsShift.forEach(el => {
-      //   el.classList.add('hidden');
-      // });
 
       caps.forEach(el => {
         el.classList.remove('active')
@@ -176,10 +175,6 @@ keyboard.addEventListener('click', function(event){
   const letterCode = target.className.split(' ')[1];
 
   textType(target, letterCode);
-
-  // const letterCode = target.className.split(' ')[1];
-  // textAreaText += keyboardEnKeys[letterCode];
-  // textarea.innerHTML = textAreaText;
 });
 
 function toUpperCase(target) {
@@ -266,3 +261,7 @@ function textType(target, code) {
     textarea.innerHTML = textAreaText;
   }
 }
+
+
+
+export { language, letterCase, enLanguage, ruLanguage }
