@@ -1,7 +1,10 @@
 import generateLayout from './src/modules/generateLayout.js';
 import setLanguage from './src/modules/setLanguage.js';
 
-let language = 'en';
+let language = localStorage.getItem('language');
+language = language == null ? 'en' : language;
+console.log(language);
+
 let letterCase = 'caseDown';
 const serviceKeysCodes = ['Backspace', 'Tab', 'CapsLock', 'Enter', 'ShiftLeft', 'ShiftRight', 'ControlLeft', 'AltLeft', 'LeftCmd', 'RightCmd', 'AltRight', 'Fn'];
 
@@ -40,9 +43,8 @@ function runOnKeys(func, ...codes) {
 }
 
 function changeLanguage() {
-  if (language === 'en') {
-    language = 'ru';
-  } else language = 'en';
+  language = language === 'ru' ? 'en' : 'ru'
+  localStorage.setItem('language', language);
   setLanguage(language, letterCase);
 }
 
@@ -240,6 +242,9 @@ keyboard.addEventListener('click', (event) => {
 
   textType(target, letterCode);
 });
+
+// const activeLanguage = document.querySelectorAll(`.${language}.active`); //только активный язык
+// console.log(activeLanguage)
 
 export {
   enLanguage, ruLanguage,
