@@ -1,4 +1,4 @@
-export function CreateElem(tag, clName) {
+export default function CreateElem(tag, clName) {
   this.tag = tag;
   this.clName = clName;
 

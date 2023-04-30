@@ -1,4 +1,4 @@
-import { CreateElem } from "./createElement.js";
+import CreateElem from './createElement.js';
 
 import keyboardEnCapsKeys from '../languages/en/keyboardEnCapsKeys.js';
 import keyboardEnCapsShiftKeys from '../languages/en/keyboardEnCapsShiftKeys.js';
@@ -18,8 +18,7 @@ const keyboardRuUpperCaseKeysArray = Object.keys(keyboardRuUpperCaseKeys);
 const keyboardRuCapsKeysArray = Object.keys(keyboardRuCapsKeys);
 const keyboardRuCapsShiftKeysArray = Object.keys(keyboardRuCapsShiftKeys);
 
-
-export function generateLayout() {
+export default function generateLayout() {
   const headertext = 'RSS Виртуальная клавиатура';
   const keyboarsRowsLength = [14, 14, 13, 14, 10]; // количество кнопок в каждом ряду
 
@@ -29,7 +28,6 @@ export function generateLayout() {
   const header = new CreateElem('h1', 'h1');
   header.innerHTML = headertext;
   wrapper.append(header);
-
 
   const keyboard = new CreateElem('div', 'keyboard');
   const textarea = new CreateElem('textarea', 'textarea');
@@ -41,52 +39,52 @@ export function generateLayout() {
 
   let shift = 0;
 
-  for (let i = 0; i < keyboarsRowsLength.length; i++) {
-    let row = new CreateElem('div', `row row${i+1}`);
+  for (let i = 0; i < keyboarsRowsLength.length; i += 1) {
+    const row = new CreateElem('div', `row row${i + 1}`);
     keyboard.append(row);
 
-    for (let j = 0; j < keyboarsRowsLength[i]; j++) {
-      let keyboardButton = new CreateElem('div', `key ${keyboardEnKeysArray[shift+j]}`);
+    for (let j = 0; j < keyboarsRowsLength[i]; j += 1) {
+      const keyboardButton = new CreateElem('div', `key ${keyboardEnKeysArray[shift + j]}`);
       row.append(keyboardButton);
 
-      let ruButton = new CreateElem('span', 'ru hidden');
+      const ruButton = new CreateElem('span', 'ru hidden');
       keyboardButton.append(ruButton);
 
-      let ruCaseDown = new CreateElem('span', 'caseDown active');
-      ruCaseDown.innerHTML = keyboardRuKeys[keyboardRuKeysArray[shift+j]];
+      const ruCaseDown = new CreateElem('span', 'caseDown active');
+      ruCaseDown.innerHTML = keyboardRuKeys[keyboardRuKeysArray[shift + j]];
       ruButton.append(ruCaseDown);
 
-      let ruCaseUp = new CreateElem('span', 'caseUp hidden');
-      ruCaseUp.innerHTML = keyboardRuUpperCaseKeys[keyboardRuUpperCaseKeysArray[shift+j]];
+      const ruCaseUp = new CreateElem('span', 'caseUp hidden');
+      ruCaseUp.innerHTML = keyboardRuUpperCaseKeys[keyboardRuUpperCaseKeysArray[shift + j]];
       ruButton.append(ruCaseUp);
 
-      let ruCaps = new CreateElem('span', 'caps hidden');
-      ruCaps.innerHTML = keyboardRuCapsKeys[keyboardRuCapsKeysArray[shift+j]];
+      const ruCaps = new CreateElem('span', 'caps hidden');
+      ruCaps.innerHTML = keyboardRuCapsKeys[keyboardRuCapsKeysArray[shift + j]];
       ruButton.append(ruCaps);
 
-      let ruCapsShift = new CreateElem('span', 'capsShift hidden');
-      ruCapsShift.innerHTML = keyboardRuCapsShiftKeys[keyboardRuCapsShiftKeysArray[shift+j]];
+      const ruCapsShift = new CreateElem('span', 'capsShift hidden');
+      ruCapsShift.innerHTML = keyboardRuCapsShiftKeys[keyboardRuCapsShiftKeysArray[shift + j]];
       ruButton.append(ruCapsShift);
 
       // let enButton = new CreateElem('span', 'en');
-      let enButton = new CreateElem('span', 'en hidden');
+      const enButton = new CreateElem('span', 'en hidden');
       keyboardButton.append(enButton);
 
       // let enCaseDown = new CreateElem('span', 'caseDown active');
-      let enCaseDown = new CreateElem('span', 'caseDown hidden');
-      enCaseDown.innerHTML = keyboardEnKeys[keyboardEnKeysArray[shift+j]];
+      const enCaseDown = new CreateElem('span', 'caseDown hidden');
+      enCaseDown.innerHTML = keyboardEnKeys[keyboardEnKeysArray[shift + j]];
       enButton.append(enCaseDown);
 
-      let enCaseUp = new CreateElem('span', 'caseUp hidden');
-      enCaseUp.innerHTML = keyboardEnUpperCaseKeys[keyboardEnUpperCaseKeysArray[shift+j]];
+      const enCaseUp = new CreateElem('span', 'caseUp hidden');
+      enCaseUp.innerHTML = keyboardEnUpperCaseKeys[keyboardEnUpperCaseKeysArray[shift + j]];
       enButton.append(enCaseUp);
 
-      let enCaps = new CreateElem('span', 'caps hidden');
-      enCaps.innerHTML = keyboardEnCapsKeys[keyboardEnCapsKeysArray[shift+j]];
+      const enCaps = new CreateElem('span', 'caps hidden');
+      enCaps.innerHTML = keyboardEnCapsKeys[keyboardEnCapsKeysArray[shift + j]];
       enButton.append(enCaps);
 
-      let enCapsShift = new CreateElem('span', 'capsShift hidden');
-      enCapsShift.innerHTML = keyboardEnCapsShiftKeys[keyboardEnCapsShiftKeysArray[shift+j]];
+      const enCapsShift = new CreateElem('span', 'capsShift hidden');
+      enCapsShift.innerHTML = keyboardEnCapsShiftKeys[keyboardEnCapsShiftKeysArray[shift + j]];
       enButton.append(enCapsShift);
     }
     shift += keyboarsRowsLength[i];
