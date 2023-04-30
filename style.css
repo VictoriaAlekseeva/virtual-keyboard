@@ -89,3 +89,8 @@ h1 {
 .hidden {
   display: none;
 }
+
+.explain {
+  text-align: center;
+  line-height: 25px;
+}

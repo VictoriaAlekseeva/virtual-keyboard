@@ -6,7 +6,7 @@ language = language == null ? 'en' : language;
 console.log(language);
 
 let letterCase = 'caseDown';
-const serviceKeysCodes = ['Backspace', 'Tab', 'CapsLock', 'Enter', 'ShiftLeft', 'ShiftRight', 'ControlLeft', 'AltLeft', 'LeftCmd', 'RightCmd', 'AltRight', 'Fn'];
+const serviceKeysCodes = ['Backspace', 'Tab', 'CapsLock', 'Enter', 'ShiftLeft', 'ShiftRight', 'ControlLeft', 'AltLeft', 'MetaLeft', 'MetaRight', 'AltRight', 'Fn'];
 
 generateLayout();
 
@@ -48,6 +48,8 @@ function changeLanguage() {
   setLanguage(language, letterCase);
 }
 
+runOnKeys(changeLanguage, 'AltLeft', 'ControlLeft');
+
 function toUpperCase(target) {
   if ((letterCase !== ('caps' || 'capsShift')) && (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
     target.classList.add('active');
@@ -81,8 +83,6 @@ function toLowerCase(target) {
     });
   }
 }
-
-runOnKeys(changeLanguage, 'AltLeft', 'ControlLeft');
 
 function shiftCapsMouseDown(target) {
   if ((letterCase === 'caps') && (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
@@ -128,7 +128,7 @@ function shiftCapsMouseUp(target) {
 
 function textType(target, code) {
   if (!serviceKeysCodes.includes(code)) {
-    const letter = target.querySelector(`.${language} .active`);
+    const letter = target.querySelector(`.${language}.active .active`);
     textAreaText += letter.innerHTML;
     textarea.innerHTML = textAreaText;
   }
