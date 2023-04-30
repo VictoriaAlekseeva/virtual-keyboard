@@ -1,6 +1,8 @@
 import generateLayout from './src/modules/generateLayout.js';
 import setLanguage from './src/modules/setLanguage.js';
 
+import toUpperCase from './src/modules/toUpperCase.js';
+
 let language = localStorage.getItem('language');
 language = language == null ? 'en' : language;
 console.log(language);
@@ -49,23 +51,6 @@ function changeLanguage() {
 }
 
 runOnKeys(changeLanguage, 'AltLeft', 'ControlLeft');
-
-function toUpperCase(target) {
-  if ((letterCase !== ('caps' || 'capsShift')) && (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
-    target.classList.add('active');
-    letterCase = 'caseUp';
-
-    caseDown.forEach((el) => {
-      el.classList.remove('active');
-      el.classList.add('hidden');
-    });
-
-    caseUp.forEach((el) => {
-      el.classList.add('active');
-      el.classList.remove('hidden');
-    });
-  }
-}
 
 function toLowerCase(target) {
   if ((letterCase !== ('caps' || 'capsShift')) && (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
@@ -129,6 +114,7 @@ function shiftCapsMouseUp(target) {
 function textType(target, code) {
   if (!serviceKeysCodes.includes(code)) {
     const letter = target.querySelector(`.${language}.active .active`);
+    console.log(letter)
     textAreaText += letter.innerHTML;
     textarea.innerHTML = textAreaText;
   }
@@ -199,7 +185,7 @@ window.addEventListener('keydown', (event) => {
   target.classList.add('active');
   textType(target, event.code);
   capsLockOnOff(event, target);
-  toUpperCase(target);
+  toUpperCase(target, letterCase, language);
   shiftCapsMouseDown(target);
 });
 
@@ -218,7 +204,7 @@ keyboard.addEventListener('mousedown', (event) => {
   if (!keyboard.contains(target)) return;
 
   capsLockHandler(target);
-  toUpperCase(target);
+  toUpperCase(target, letterCase, language);
   shiftCapsMouseDown(target);
 });
 
