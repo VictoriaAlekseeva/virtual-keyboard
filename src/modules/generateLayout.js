@@ -67,11 +67,9 @@ export default function generateLayout() {
       ruCapsShift.innerHTML = keyboardRuCapsShiftKeys[keyboardRuCapsShiftKeysArray[shift + j]];
       ruButton.append(ruCapsShift);
 
-      // let enButton = new CreateElem('span', 'en');
       const enButton = new CreateElem('span', 'en hidden');
       keyboardButton.append(enButton);
 
-      // let enCaseDown = new CreateElem('span', 'caseDown active');
       const enCaseDown = new CreateElem('span', 'caseDown hidden');
       enCaseDown.innerHTML = keyboardEnKeys[keyboardEnKeysArray[shift + j]];
       enButton.append(enCaseDown);
