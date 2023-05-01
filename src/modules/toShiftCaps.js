@@ -1,7 +1,7 @@
-export default function toShiftCaps(target, letterCase, language) {
+export default function toShiftCaps(target, event, language) {
   const activeLanguage = document.querySelectorAll(`.${language}.active`);
 
-  if (letterCase === 'caps') {
+  if (document.querySelector('.key.CapsLock.active') && ((event.type === 'mousedown') || (event.type === 'keydown'))) {
     target.classList.add('active');
 
     activeLanguage.forEach((el) => {
@@ -16,7 +16,7 @@ export default function toShiftCaps(target, letterCase, language) {
     });
   }
 
-  if (letterCase === 'capsShift') {
+  if (document.querySelector('.key.CapsLock.active') && document.querySelector('.capsShift.active') && ((event.type === 'mouseup') || (event.type === 'keyup'))) {
     // отпустили шифт
     target.classList.remove('active');
 
