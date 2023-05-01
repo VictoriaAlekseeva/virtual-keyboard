@@ -119,21 +119,42 @@ setLanguage(language, letterCase);
 
 window.addEventListener('keydown', (event) => {
   const target = document.querySelector(`.${event.code}`);
-  target.classList.add('active');
+  // target.classList.add('active');
   console.log(target);
 
-  // textType(target, event.code);
-  toUpperCase(target, letterCase, language);
+  // if (!event.getModifierState('CapsLock')) {
+  //   toUpperCase(target, letterCase, language);
+  // }
   capsLockOnOff(event, target, letterCase, language);
+
+  // if (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight')) {
+    if (event.getModifierState('Shift')) {
+    toUpperCase(target, letterCase, language);
+  }
+
+  // textType(target, event.code);
+  console.log(letterCase)
+
   // toShiftCaps(target, letterCase, language);
 });
 
 window.addEventListener('keyup', (event) => {
   const target = document.querySelector(`.${event.code}`);
-  target.classList.remove('active');
+  // target.classList.remove('active');
+  console.log(letterCase)
   console.log(target)
   capsLockOnOff(event, target, letterCase, language);
-  toLowerCase(target, letterCase, language);
+
+  // if (!event.getModifierState('CapsLock')) {
+  //   // toUpperCase(target, letterCase, language);
+  //   toLowerCase(target, letterCase, language);
+  // }
+  if (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight')) {
+    toLowerCase(target, letterCase, language);
+  }
+
+
+
   // shiftCapsMouseUp(target);
 });
 
