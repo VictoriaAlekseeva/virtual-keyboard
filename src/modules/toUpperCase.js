@@ -1,15 +1,18 @@
+import addActiveClass from './addActiveClass.js';
+import removeActiveClass from './removeActiveClass.js'
+
+
 export default function toUpperCase(target, letterCase, language) {
-  if ((letterCase !== ('caps' || 'capsShift')) && (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
+
+  if ((letterCase !== 'caps') || (letterCase !=='capsShift')) {
     target.classList.add('active');
     letterCase = 'caseUp';
 
     const activeLanguage = document.querySelectorAll(`.${language}.active`)
 
     activeLanguage.forEach(el => {
-      el.querySelector('.caseDown').classList.remove('active');
-      el.querySelector('.caseDown').classList.add('hidden');
-      el.querySelector('.caseUp').classList.add('active');
-      el.querySelector('.caseUp').classList.remove('hidden');
+      removeActiveClass(el, 'caseDown', 'capsShift', 'caps');
+      addActiveClass(el, 'caseUp');
     })
   }
 }
