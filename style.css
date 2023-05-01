@@ -51,10 +51,11 @@ h1 {
   transition: 0.3s;
 }
 
-.key:active,
+/* .key:active, */
 .key.active {
   background-color: green;
   border-radius: 40px;
+  scale: 0.9;
 }
 
 .Backspace {
