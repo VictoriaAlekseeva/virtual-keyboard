@@ -126,11 +126,15 @@ window.addEventListener('keydown', (event) => {
 
   capsLockOnOff(event, target, letterCase, language);
 
-  toShiftCaps(target, letterCase, language, event);
+  // toShiftCaps(target, letterCase, language, event);
 
-  if (event.getModifierState('Shift') && (!document.querySelector('.key.CapsLock.active'))) {
+  if ((!document.querySelector('.key.CapsLock.active')) && (event.getModifierState('Shift') && (!document.querySelector('.key.CapsLock.active')))) {
     toUpperCase(target, letterCase, language);
     letterCase = 'caseUp';
+  }
+
+  if (document.querySelector('.key.CapsLock.active')) {
+    toShiftCaps(target, event, language)
   }
 
   textType(target, event);
@@ -143,8 +147,12 @@ window.addEventListener('keyup', (event) => {
 
   capsLockOnOff(event, target, letterCase, language);
 
-  if (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight')) {
+  if ((!document.querySelector('.key.CapsLock.active')) && (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
     toLowerCase(target, letterCase, language);
+  }
+
+  if (document.querySelector('.key.CapsLock.active')) {
+    toShiftCaps(target, event, language)
   }
   textType(target, event);
 });
@@ -158,9 +166,15 @@ keyboard.addEventListener('mousedown', (event) => {
 
   target.classList.add('active');
 
-  if (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight')) {
+console.log(event.type)
+
+  if ((!document.querySelector('.key.CapsLock.active')) && (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
     toUpperCase(target, letterCase, language);
     letterCase = 'caseUp';
+  }
+
+  if (document.querySelector('.key.CapsLock.active')) {
+    toShiftCaps(target, event, language)
   }
 
   textType(target, event);
@@ -175,10 +189,15 @@ keyboard.addEventListener('mouseup', (event) => {
 
   target.classList.remove('active');
 
-  if (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight')) {
+  if ((!document.querySelector('.key.CapsLock.active')) && (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
     toLowerCase(target, letterCase, language);
     letterCase = 'caseDown';
   }
+
+  if (document.querySelector('.key.CapsLock.active')) {
+    toShiftCaps(target, event, language)
+  }
+
   textType(target, event);
 });
 
