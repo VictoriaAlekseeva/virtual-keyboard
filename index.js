@@ -11,7 +11,7 @@ language = language == null ? 'en' : language;
 
 let letterCase = 'caseDown';
 
-const serviceKeysCodes = ['Backspace', 'CapsLock', 'ShiftLeft', 'ShiftRight', 'ControlLeft', 'AltLeft', 'MetaLeft', 'MetaRight', 'AltRight', 'Fn'];
+const serviceKeysCodes = ['CapsLock', 'ShiftLeft', 'ShiftRight', 'ControlLeft', 'AltLeft', 'MetaLeft', 'MetaRight', 'AltRight', 'Fn'];
 
 generateLayout();
 
@@ -20,7 +20,7 @@ const textarea = document.querySelector('.textarea');
 const enLanguage = document.querySelectorAll('.en');
 const ruLanguage = document.querySelectorAll('.ru');
 
-let textAreaText = '';
+// let textAreaText = '';
 
 function setLanguage() {
   if (language === 'en') {
@@ -85,20 +85,33 @@ runOnKeys(changeLanguage, 'AltLeft', 'ControlLeft');
 function textType(target, event) {
   if (serviceKeysCodes.includes(target.classList[1])) return;
   if (((event.type === 'keydown') || (event.type === 'mousedown'))) {
-    let letter = target.querySelector(`.${language}.active .active`);
+    const letter = target.querySelector(`.${language}.active .active`);
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+
+    const { value } = textarea;
 
     switch (target.classList[1]) {
       case 'Tab':
-        letter = '';
-        textAreaText += '\t';
+        textarea.value = `${value.slice(0, start)}\t${value.slice(end, value.length)}`;
+        textarea.selectionStart = start + 1;
+        textarea.selectionEnd = end + 1;
         break;
       case 'Enter':
-        letter = '';
-        textAreaText += '\n';
+        textarea.value = `${value.slice(0, start)}\n${value.slice(end, value.length)}`;
+        textarea.selectionStart = start + 1;
+        textarea.selectionEnd = end + 1;
+        break;
+      case 'Backspace':
+        if (start === 0) break;
+        textarea.value = `${value.slice(0, start - 1)}${value.slice(end, value.length)}`;
+        textarea.selectionStart = start;
+        textarea.selectionEnd = end - 1;
         break;
       default:
-        textAreaText += letter.innerHTML;
-        textarea.value = textAreaText;
+        textarea.value = `${value.slice(0, start)}${letter.innerHTML}${value.slice(end, value.length)}`;
+        textarea.selectionStart = start + 1;
+        textarea.selectionEnd = end + 1;
     }
   }
 }

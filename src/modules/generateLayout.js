@@ -21,7 +21,7 @@ const keyboardRuCapsShiftKeysArray = Object.keys(keyboardRuCapsShiftKeys);
 export default function generateLayout() {
   const headertext = 'RSS Виртуальная клавиатура';
   const keyboarsRowsLength = [14, 14, 13, 14, 10]; // количество кнопок в каждом ряду
-  const explainTextContent = 'Клавиатура создана на MacOS </br> Для переключения языка используются leftCtrl + leftOpt(leftAlt) </br> на macOS при одновременном нажатии CapsLock и Shift остаются в верхнем регистре, меняются только небуквенные значения';
+  const explainTextContent = 'Клавиатура создана на MacOS </br> Для переключения языка используются leftCtrl + leftOpt(leftAlt) </br> на macOS при одновременном нажатии CapsLock и Shift буквы остаются в верхнем регистре, меняются только небуквенные значения';
 
   const wrapper = new CreateElem('div', 'wrapper');
   document.body.prepend(wrapper);
