@@ -121,11 +121,12 @@ window.addEventListener('keyup', (event) => {
 
 keyboard.addEventListener('mousedown', (event) => {
   const target = event.target.closest('div.key');
-  if (target.classList.contains('CapsLock')) return
-  target.classList.add('active');
 
+  if (target.classList.contains('CapsLock')) return;
   if (!target) return;
   if (!keyboard.contains(target)) return;
+
+  target.classList.add('active');
 
   if (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight')) {
     toUpperCase(target, letterCase, language);
@@ -136,12 +137,13 @@ keyboard.addEventListener('mousedown', (event) => {
 
 keyboard.addEventListener('mouseup', (event) => {
   const target = event.target.closest('div.key');
-  target.classList.remove('active');
-  
-  if (target.classList.contains('CapsLock')) return
 
+  if (target.classList.contains('CapsLock')) return;
   if (!target) return;
   if (!keyboard.contains(target)) return;
+
+  target.classList.remove('active');
+
   if (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight')) {
     toLowerCase(target, letterCase, language);
   }
