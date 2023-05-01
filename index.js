@@ -12,6 +12,13 @@ language = language == null ? 'en' : language;
 console.log(language);
 
 let letterCase = 'caseDown';
+
+const letterCases = {
+  caseDown: true,
+  caseUp: false,
+  caps: false,
+  capsShift: false
+}
 const serviceKeysCodes = ['Backspace', 'Tab', 'CapsLock', 'Enter', 'ShiftLeft', 'ShiftRight', 'ControlLeft', 'AltLeft', 'MetaLeft', 'MetaRight', 'AltRight', 'Fn'];
 
 generateLayout();
@@ -115,9 +122,6 @@ window.addEventListener('keydown', (event) => {
   target.classList.add('active');
   console.log(target);
 
-
-
-
   // textType(target, event.code);
   toUpperCase(target, letterCase, language);
   capsLockOnOff(event, target, letterCase, language);
@@ -144,9 +148,7 @@ keyboard.addEventListener('mousedown', (event) => {
     // toShiftCaps(target, letterCase, language);
   }
 
-//   if (target.classList.contains('CapsLock')) {
-//   capsLockHandler(target, letterCase, language);
-// }
+
 //   // toUpperCase(target, letterCase, language);
 //   // toShiftCaps(target, letterCase, language);
 
@@ -157,9 +159,8 @@ keyboard.addEventListener('mouseup', (event) => {
 
   if (!target) return;
   if (!keyboard.contains(target)) return;
-  // toUpperCase(target, letterCase, language);
   if (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight')) {
-    toUpperCase(target, letterCase, language);
+    toLowerCase(target, letterCase, language);
     // toShiftCaps(target, letterCase, language);
   }
 
@@ -168,16 +169,20 @@ keyboard.addEventListener('mouseup', (event) => {
   // toLowerCase(target, letterCase, language);
 });
 
-// keyboard.addEventListener('click', (event) => {
-//   const target = event.target.closest('div.key');
+keyboard.addEventListener('click', (event) => {
+  const target = event.target.closest('div.key');
 
-//   if (!target) return;
-//   if (!keyboard.contains(target)) return;
+  if (!target) return;
+  if (!keyboard.contains(target)) return;
 
-//   const letterCode = target.className.split(' ')[1];
+  if (target.classList.contains('CapsLock')) {
+    capsLockHandler(target, letterCase, language);
+  }
 
-//   textType(target, letterCode);
-// });
+  // const letterCode = target.className.split(' ')[1];
+
+  // textType(target, letterCode);
+});
 
 // const activeLanguage = document.querySelectorAll(`.${language}.active`); //только активный язык
 // console.log(activeLanguage)

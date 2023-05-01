@@ -1,3 +1,6 @@
+import addActiveClass from './addActiveClass.js';
+import removeActiveClass from './removeActiveClass.js'
+
 export default function capsLockOnOff(event, target, letterCase, language) {
   const activeLanguage = document.querySelectorAll(`.${language}.active`)
 
@@ -8,7 +11,7 @@ export default function capsLockOnOff(event, target, letterCase, language) {
         removeActiveClass(el, 'caseDown', 'capsShift', 'caseUp');
         addActiveClass(el, 'caps');
       })
-    } else {
+    } else if (!event.getModifierState('CapsLock')){
       target.classList.remove('active');
       activeLanguage.forEach(el => {
         addActiveClass(el, 'caseDown');
