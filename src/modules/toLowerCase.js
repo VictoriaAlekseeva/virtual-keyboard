@@ -4,7 +4,6 @@ import removeActiveClass from './removeActiveClass.js'
 export default function toLowerCase(target, letterCase, language) {
   if ((target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
     target.classList.remove('active');
-    // letterCase = 'caseDown';
 
     const activeLanguage = document.querySelectorAll(`.${language}.active`)
 
