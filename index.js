@@ -97,7 +97,22 @@ function textType(target, event) {
 
     const { value } = textarea;
 
-    switch (target.classList[1]) {
+    switch (event.key) {
+      case '>':
+        textarea.value = `${value.slice(0, start)}>${value.slice(end, value.length)}`;
+        textarea.selectionStart = start + 1;
+        textarea.selectionEnd = end + 1;
+        break;
+      case '<':
+        textarea.value = `${value.slice(0, start)}<${value.slice(end, value.length)}`;
+        textarea.selectionStart = start + 1;
+        textarea.selectionEnd = end + 1;
+        break;
+      case '&':
+        textarea.value = `${value.slice(0, start)}&${value.slice(end, value.length)}`;
+        textarea.selectionStart = start + 1;
+        textarea.selectionEnd = end + 1;
+        break;
       case 'Tab':
         textarea.value = `${value.slice(0, start)}\t${value.slice(end, value.length)}`;
         textarea.selectionStart = start + 1;
