@@ -1,7 +1,7 @@
 import addActiveClass from './addActiveClass.js';
 import removeActiveClass from './removeActiveClass.js';
 
-export default function toLowerCase(target, letterCase, language) {
+export default function toLowerCase(target, language) {
   if ((target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
     target.classList.remove('active');
 

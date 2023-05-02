@@ -1,28 +1,32 @@
 import generateLayout from './src/modules/generateLayout.js';
-
 import toUpperCase from './src/modules/toUpperCase.js';
 import toLowerCase from './src/modules/toLowerCase.js';
 import capsLockOnOff from './src/modules/capsLockOnOff.js';
 import capsLockHandler from './src/modules/capsLockHandler.js';
 import toShiftCaps from './src/modules/toShiftCaps.js';
 
+generateLayout();
+
 let language = localStorage.getItem('language');
 language = language == null ? 'en' : language;
 
-let letterCase = 'caseDown';
-
 const serviceKeysCodes = ['CapsLock', 'ShiftLeft', 'ShiftRight', 'ControlLeft', 'AltLeft', 'MetaLeft', 'MetaRight', 'AltRight', 'Fn'];
-
-generateLayout();
 
 const keyboard = document.querySelector('.keyboard');
 const textarea = document.querySelector('.textarea');
 const enLanguage = document.querySelectorAll('.en');
 const ruLanguage = document.querySelectorAll('.ru');
 
-// let textAreaText = '';
-
 function setLanguage() {
+  let letterCase = 'caseDown';
+  if ((document.querySelector('.caseUp.active'))) {
+    letterCase = 'caseUp';
+  } else if ((document.querySelector('.caps.active'))) {
+    letterCase = 'caps';
+  } else if ((document.querySelector('.capsShift.active'))) {
+    letterCase = 'capsShift';
+  }
+
   if (language === 'en') {
     enLanguage.forEach((el) => {
       el.classList.remove('hidden');
@@ -74,6 +78,8 @@ function runOnKeys(func, ...codes) {
   });
 }
 
+setLanguage();
+
 function changeLanguage() {
   language = language === 'ru' ? 'en' : 'ru';
   localStorage.setItem('language', language);
@@ -116,25 +122,23 @@ function textType(target, event) {
   }
 }
 
-setLanguage();
-
 window.addEventListener('keydown', (event) => {
   event.preventDefault();
   const target = document.querySelector(`.${event.code}`);
 
   target.classList.add('active');
 
-  capsLockOnOff(event, target, letterCase, language);
-
-  // toShiftCaps(target, letterCase, language, event);
+  capsLockOnOff(event, target, language);
 
   if ((!document.querySelector('.key.CapsLock.active')) && (event.getModifierState('Shift') && (!document.querySelector('.key.CapsLock.active')))) {
-    toUpperCase(target, letterCase, language);
-    letterCase = 'caseUp';
+    toUpperCase(target, language);
   }
 
-  if (document.querySelector('.key.CapsLock.active')) {
-    toShiftCaps(target, event, language)
+  if (document.querySelector('.key.CapsLock.active') && (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
+    toShiftCaps(target, event, language);
+  }
+  if (document.querySelector('.key.caseUp.active') && (target.classList.contains('CapsLock'))) {
+    toShiftCaps(target, event, language);
   }
 
   textType(target, event);
@@ -145,14 +149,18 @@ window.addEventListener('keyup', (event) => {
 
   target.classList.remove('active');
 
-  capsLockOnOff(event, target, letterCase, language);
+  capsLockOnOff(event, target, language);
 
   if ((!document.querySelector('.key.CapsLock.active')) && (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
-    toLowerCase(target, letterCase, language);
+    toLowerCase(target, language);
   }
 
-  if (document.querySelector('.key.CapsLock.active')) {
-    toShiftCaps(target, event, language)
+  if (document.querySelector('.key.CapsLock.active') && (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
+    toShiftCaps(target, event, language);
+  }
+
+  if (document.querySelector('.key.caseUp.active') && (target.classList.contains('CapsLock'))) {
+    toShiftCaps(target, event, language);
   }
   textType(target, event);
 });
@@ -166,15 +174,15 @@ keyboard.addEventListener('mousedown', (event) => {
 
   target.classList.add('active');
 
-console.log(event.type)
-
   if ((!document.querySelector('.key.CapsLock.active')) && (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
-    toUpperCase(target, letterCase, language);
-    letterCase = 'caseUp';
+    toUpperCase(target, language);
   }
 
-  if (document.querySelector('.key.CapsLock.active')) {
-    toShiftCaps(target, event, language)
+  if (document.querySelector('.key.CapsLock.active') && (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
+    toShiftCaps(target, event, language);
+  }
+  if (document.querySelector('.key.caseUp.active') && (target.classList.contains('CapsLock'))) {
+    toShiftCaps(target, event, language);
   }
 
   textType(target, event);
@@ -190,12 +198,14 @@ keyboard.addEventListener('mouseup', (event) => {
   target.classList.remove('active');
 
   if ((!document.querySelector('.key.CapsLock.active')) && (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
-    toLowerCase(target, letterCase, language);
-    letterCase = 'caseDown';
+    toLowerCase(target, language);
   }
 
-  if (document.querySelector('.key.CapsLock.active')) {
-    toShiftCaps(target, event, language)
+  if (document.querySelector('.key.CapsLock.active') && (target.classList.contains('ShiftLeft') || target.classList.contains('ShiftRight'))) {
+    toShiftCaps(target, event, language);
+  }
+  if (document.querySelector('.key.caseUp.active') && (target.classList.contains('CapsLock'))) {
+    toShiftCaps(target, event, language);
   }
 
   textType(target, event);
@@ -208,8 +218,7 @@ keyboard.addEventListener('click', (event) => {
   if (!keyboard.contains(target)) return;
 
   if (target.classList.contains('CapsLock')) {
-    capsLockHandler(target, letterCase, language);
-    letterCase = 'caps';
+    capsLockHandler(target, language);
   }
 });
 

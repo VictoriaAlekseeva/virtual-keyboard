@@ -1,7 +1,7 @@
 import addActiveClass from './addActiveClass.js';
 import removeActiveClass from './removeActiveClass.js';
 
-export default function capsLockHandler(target, letterCase, language) {
+export default function capsLockHandler(target, language) {
   const activeLanguage = document.querySelectorAll(`.${language}.active`);
 
   if (!target.classList.contains('active')) {

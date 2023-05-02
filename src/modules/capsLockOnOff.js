@@ -1,7 +1,7 @@
 import addActiveClass from './addActiveClass.js';
 import removeActiveClass from './removeActiveClass.js';
 
-export default function capsLockOnOff(event, target, letterCase, language) {
+export default function capsLockOnOff(event, target, language) {
   const activeLanguage = document.querySelectorAll(`.${language}.active`);
 
   if (event.getModifierState('CapsLock') && !event.getModifierState('Shift')) {
