@@ -134,6 +134,31 @@ function textType(target, event) {
         textarea.selectionStart = start + 1;
         textarea.selectionEnd = end + 1;
     }
+
+    if (!event.key) {
+      switch (letter.textContent) {
+        case '>':
+        textarea.value = `${value.slice(0, start)}>${value.slice(end, value.length)}`;
+        textarea.selectionStart = start + 1;
+        textarea.selectionEnd = end + 1;
+        break;
+      case '<':
+        textarea.value = `${value.slice(0, start)}<${value.slice(end, value.length)}`;
+        textarea.selectionStart = start + 1;
+        textarea.selectionEnd = end + 1;
+        break;
+      case '&':
+        textarea.value = `${value.slice(0, start)}&${value.slice(end, value.length)}`.replace(/&amp;/g, '&');
+        textarea.selectionStart = start + 1;
+        textarea.selectionEnd = end + 1;
+        console.log('!!!')
+        break;
+      default:
+        textarea.value = `${value.slice(0, start)}${letter.innerHTML}${value.slice(end, value.length)}`;
+        textarea.selectionStart = start + 1;
+        textarea.selectionEnd = end + 1;
+      }
+    }
   }
 }
 
